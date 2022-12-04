@@ -9,10 +9,17 @@
 #include <QPoint>
 #include <QMouseEvent>
 #include <QtWidgets>
+#include "computer.h"
 
 namespace Ui {
 class MainWindow;
 }
+
+enum Status
+{
+    Placement,
+    Battle
+};
 
 class MainWindow : public QMainWindow
 {
@@ -29,7 +36,9 @@ protected:
 private:
     Ui::MainWindow *ui;
     Images *images;
-    Battlefield *battlefield;
+    Battlefield *battlefield, *Enemybattlefield;
+    Status status;
+    Computer *computer;
 };
 
 #endif // MAINWINDOW_H

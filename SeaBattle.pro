@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     images.cpp \
-    battlefield.cpp
+    battlefield.cpp \
+    computer.cpp
 
 HEADERS  += mainwindow.h \
     images.h \
-    battlefield.h
+    battlefield.h \
+    computer.h
 
 FORMS    += mainwindow.ui
 

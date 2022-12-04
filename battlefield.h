@@ -21,12 +21,14 @@ class Battlefield
 public:
     Battlefield(Images *images, int width, int height);
     ~Battlefield();
-    void update();
+    void update(bool enemy);
     const QImage& get() const;
     void set(int x, int y, Cell cell);
     QPoint getCoordinates (int x, int y);
     bool canSet (int x, int y);
     Cell check(int x, int y);
+    void shot(int x, int y);
+    void fill(QVector<Cell> combattlefield);
 
 private:
     QVector<Cell> battlefield;

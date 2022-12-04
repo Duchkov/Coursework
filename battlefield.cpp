@@ -13,19 +13,41 @@ Battlefield::~Battlefield()
     delete image;
 }
 
-void Battlefield::update()
+void Battlefield::update(bool enemy)
 {
     image->fill(0);
     QPainter painter(image);
     painter.drawImage(0,0,images->get("field"));
     for (int i=0; i<10; i++)
          for (int j=0; j<10; j++)
-             switch(battlefield[i+10*j])
+             if (enemy)
              {
-                 case Ship:
-                 painter.drawImage(i*32+50,j*32+52,images->get("ship"));
-                 break;
-                 default: break;
+                 switch(battlefield[i+10*j])
+                 {
+                     case Shot:
+                     painter.drawImage(i*32+50,j*32+52,images->get("shot"));
+                     break;
+                     case Hit:
+                     painter.drawImage(i*32+50,j*32+52,images->get("hit"));
+                     break;
+                     default: break;
+                 }
+             }
+             else
+             {
+                 switch(battlefield[i+10*j])
+                 {
+                     case Ship:
+                     painter.drawImage(i*32+50,j*32+52,images->get("ship"));
+                     break;
+                     case Shot:
+                     painter.drawImage(i*32+50,j*32+52,images->get("shot"));
+                     break;
+                     case Hit:
+                     painter.drawImage(i*32+50,j*32+52,images->get("hit"));
+                     break;
+                     default: break;
+                 }
              }
 }
 
@@ -36,7 +58,7 @@ const QImage& Battlefield::get() const
 
 void Battlefield::set(int x, int y, Cell cell)
 {
-    qDebug() << "Ship" << x << y;
+    qDebug() << "Ship" << x+50 << y+50;
     QPoint Coord = getCoordinates(x, y);
     qDebug() << "Ship" << Coord.x() << Coord.y();
     int num = Coord.x()+Coord.y()*10;
@@ -57,8 +79,8 @@ QPoint Battlefield::getCoordinates(int xx, int yy)
     QPoint Coordinates;
     Coordinates.setX(-1);
     Coordinates.setY(-1);
-    int x = xx-50-50;
-    int y = yy-50-52;
+    int x = xx-50;
+    int y = yy-52;
     qDebug() << "Ship" << x << y;
     if ((x>0)&& (y>0) && (x<320) && (y<320))
     {
@@ -87,4 +109,30 @@ Cell Battlefield::check(int x, int y)
     if (x>=0 && y>=0 && x<10 && y<10)
         return battlefield[x+y*10];
     return Empty;
+}
+
+void Battlefield::shot(int x, int y)
+{
+    qDebug() << "Ship" << x+50 << y+50;
+    QPoint Coord = getCoordinates(x, y);
+    qDebug() << "Ship" << Coord.x() << Coord.y();
+    int num = Coord.x()+Coord.y()*10;
+    if (Coord.x() != -1)
+    {
+        switch(battlefield[num])
+        {
+            case Empty:
+            battlefield[num] = Shot;
+            break;
+            case Ship:
+            battlefield[num] = Hit;
+            break;
+            default: break;
+        }
+    }
+}
+
+void Battlefield::fill(QVector<Cell> combattlefield)
+{
+        battlefield = combattlefield;
 }
