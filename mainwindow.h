@@ -8,6 +8,7 @@
 #include "battlefield.h"
 #include <QPoint>
 #include <QMouseEvent>
+#include <QtWidgets>
 
 namespace Ui {
 class MainWindow;

@@ -7,6 +7,8 @@ Images::Images()
     images.insert("ship",QImage(":/Images/Images/ship.jpg"));
     images.insert("shot",QImage(":/Images/Images/shot.jpg"));
     images.insert("hit",QImage(":/Images/Images/hit.jpg"));
+    images.insert("enemy",QImage(":/Images/Images/enemy.jpg"));
+    images.insert("start",QImage(":/Images/Images/start.jpg"));
 }
 
 QImage& Images::get(const QString &name)

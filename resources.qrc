@@ -5,5 +5,7 @@
         <file>Images/hit.jpg</file>
         <file>Images/ship.jpg</file>
         <file>Images/shot.jpg</file>
+        <file>Images/enemy.jpg</file>
+        <file>Images/start.jpg</file>
     </qresource>
 </RCC>
