@@ -6,6 +6,8 @@
 #include <QImage>
 #include <QPainter>
 #include "battlefield.h"
+#include <QPoint>
+#include <QMouseEvent>
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +23,7 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 private:
     Ui::MainWindow *ui;

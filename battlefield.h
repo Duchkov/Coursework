@@ -17,15 +17,17 @@ enum Cell
 class Battlefield
 {
 public:
-    Battlefield(Images *images);
+    Battlefield(Images *images, int width, int height);
     ~Battlefield();
     void update();
     const QImage& get() const;
+    void set(int x, int y, Cell cell);
 
 private:
     QVector<Cell> battlefield;
     QImage *image;
     Images *images;
+    int width, height;
 };
 
 #endif // BATTLEFIELD_H
