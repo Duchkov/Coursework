@@ -2,11 +2,11 @@
 
 Images::Images()
 {
-    images.insert("background",QImage("C:/Curse/SeaBattle/Images/background"));
-    images.insert("field",QImage("C:/Curse/SeaBattle/Images/field"));
-    images.insert("ship",QImage("C:/Curse/SeaBattle/Images/ship"));
-    images.insert("shot",QImage("C:/Curse/SeaBattle/Images/shot"));
-    images.insert("hit",QImage("C:/Curse/SeaBattle/Images/hit"));
+    images.insert("background",QImage(":/Images/Images/background.png"));
+    images.insert("field",QImage(":/Images/Images/field.jpg"));
+    images.insert("ship",QImage(":/Images/Images/ship.jpg"));
+    images.insert("shot",QImage(":/Images/Images/shot.jpg"));
+    images.insert("hit",QImage(":/Images/Images/hit.jpg"));
 }
 
 QImage& Images::get(const QString &name)

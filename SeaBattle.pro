@@ -22,3 +22,6 @@ HEADERS  += mainwindow.h \
     battlefield.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    resources.qrc
