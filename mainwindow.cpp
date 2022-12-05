@@ -28,15 +28,20 @@ void MainWindow::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.drawImage(0,0,images->get("background"));
     painter.drawImage(50,50,battlefield->get());
-    painter.setPen(QColor(255, 0, 0, 255));
-    painter.drawText(200,40,"Отсутствуют корабли");
     if (status == Placement)
     {
         painter.drawImage(550,50,images->get("enemy"));
         painter.drawImage(400,500,images->get("start"));
     }
     else
+    {
+        if (Enemybattlefield->checkEnd() == Win)
+        {
+            painter.setPen(QColor(255, 0, 0, 255));
+            painter.drawText(500,40,"ПОБЕДА");
+        }
         painter.drawImage(550,50,Enemybattlefield->get());
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent * event)
@@ -62,6 +67,9 @@ void MainWindow::mousePressEvent(QMouseEvent * event)
         QPoint position = event->pos();
         Enemybattlefield->shot(position.x()-550,position.y()-50);
         Enemybattlefield->update(true);
+        QPoint pos = computer->attack(Enemybattlefield);
+        battlefield->shot(pos.x()*32+50,pos.y()*32+52);
+        battlefield->update(false);
         this->update();
     }
 }

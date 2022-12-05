@@ -16,6 +16,13 @@ enum Cell
 
 };
 
+enum End
+{
+    Win,
+    Lose,
+    Not
+};
+
 class Battlefield
 {
 public:
@@ -29,6 +36,8 @@ public:
     Cell check(int x, int y);
     void shot(int x, int y);
     void fill(QVector<Cell> combattlefield);
+    End checkEnd();
+
 
 private:
     QVector<Cell> battlefield;

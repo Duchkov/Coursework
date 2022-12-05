@@ -82,7 +82,7 @@ QPoint Battlefield::getCoordinates(int xx, int yy)
     int x = xx-50;
     int y = yy-52;
     qDebug() << "Ship" << x << y;
-    if ((x>0)&& (y>0) && (x<320) && (y<320))
+    if ((x>=0)&& (y>=0) && (x<=320) && (y<=320))
     {
        Coordinates.setX(x/32);
        Coordinates.setY(y/32);
@@ -135,4 +135,14 @@ void Battlefield::shot(int x, int y)
 void Battlefield::fill(QVector<Cell> combattlefield)
 {
         battlefield = combattlefield;
+}
+
+End Battlefield::checkEnd()
+{
+    for (int i=0; i<100;i++)
+    {
+        if (battlefield[i] == Ship)
+            return Not;
+    }
+    return Win;
 }
