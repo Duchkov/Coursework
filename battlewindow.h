@@ -1,7 +1,7 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef BATTLEWINDOW_H
+#define BATTLEWINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
 #include "Images.h"
 #include <QImage>
 #include <QPainter>
@@ -12,7 +12,7 @@
 #include "computer.h"
 
 namespace Ui {
-class MainWindow;
+class BattleWindow;
 }
 
 enum Status
@@ -21,20 +21,20 @@ enum Status
     Battle,
 };
 
-class MainWindow : public QMainWindow
+class BattleWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    explicit BattleWindow(QWidget *parent = 0);
+    ~BattleWindow();
 
 protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::BattleWindow *ui;
     Images *images;
     Battlefield *battlefield, *Enemybattlefield;
     Status status;
@@ -42,4 +42,4 @@ private:
     bool pause;
 };
 
-#endif // MAINWINDOW_H
+#endif // BATTLEWINDOW_H

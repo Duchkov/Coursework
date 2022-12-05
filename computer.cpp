@@ -9,8 +9,7 @@ QVector<Cell> Computer::create()
 {
     QVector<Cell> comfield;
     comfield.fill(Empty,100);
-    QTime midnight(0,0,0);
-    qsrand(midnight.secsTo(QTime::currentTime()));
+    qsrand(QDateTime::currentMSecsSinceEpoch());
     for (int i=0; i<30;i++)
     {
         int random = qrand()% 100;
@@ -41,12 +40,15 @@ QVector<Cell> Computer::create()
 
 QPoint Computer::attack(Battlefield *field)
 {
-    QTime midnight(0,0,0);
-    qsrand(midnight.secsTo(QTime::currentTime()));
     QPoint pos;
+    do
+    {
+    qsrand(QDateTime::currentMSecsSinceEpoch());
     int random = qrand()% 10;
     pos.setX(random);
     random = qrand()% 10;
     pos.setY(random);
+    }
+    while ((field->check(pos.x(), pos.y()) == Hit) or ((field->check(pos.x(), pos.y()) == Shot)));
     return pos;
 }

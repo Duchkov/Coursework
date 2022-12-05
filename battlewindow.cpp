@@ -1,12 +1,11 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "battlewindow.h"
+#include "ui_battlewindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+BattleWindow::BattleWindow(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::BattleWindow)
 {
     ui->setupUi(this);
-
     images = new Images;
     battlefield = new Battlefield(images,422,422);
     Enemybattlefield = new Battlefield(images,422,422);
@@ -18,13 +17,13 @@ MainWindow::MainWindow(QWidget *parent) :
     pause = false;
 }
 
-MainWindow::~MainWindow()
+BattleWindow::~BattleWindow()
 {
     delete images;
     delete ui;
 }
 
-void MainWindow::paintEvent(QPaintEvent *event)
+void BattleWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.drawImage(0,0,images->get("background"));
@@ -50,7 +49,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
     }
 }
 
-void MainWindow::mousePressEvent(QMouseEvent * event)
+void BattleWindow::mousePressEvent(QMouseEvent * event)
 {
     if (pause == true)
     {

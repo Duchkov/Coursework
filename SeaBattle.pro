@@ -16,14 +16,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     images.cpp \
     battlefield.cpp \
-    computer.cpp
+    computer.cpp \
+    battlewindow.cpp
 
 HEADERS  += mainwindow.h \
     images.h \
     battlefield.h \
-    computer.h
+    computer.h \
+    battlewindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    battlewindow.ui
 
 RESOURCES += \
     resources.qrc

@@ -23,6 +23,11 @@ enum End
     Not
 };
 
+struct statusShip{
+    int num;
+    bool alive;
+};
+
 class Battlefield
 {
 public:
@@ -34,10 +39,12 @@ public:
     QPoint getCoordinates (int x, int y);
     bool canSet (int x, int y);
     Cell check(int x, int y);
-    void shot(int x, int y);
+    bool shot(int x, int y);
     void fill(QVector<Cell> combattlefield);
     End checkEnd();
-
+    bool correct();
+    QPoint monoShip(QPoint pos);
+    statusShip status(QPoint pos);
 
 private:
     QVector<Cell> battlefield;

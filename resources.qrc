@@ -7,5 +7,7 @@
         <file>Images/shot.jpg</file>
         <file>Images/enemy.jpg</file>
         <file>Images/start.jpg</file>
+        <file>Images/win.png</file>
+        <file>Images/lose.png</file>
     </qresource>
 </RCC>
