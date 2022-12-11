@@ -9,5 +9,10 @@
         <file>Images/start.jpg</file>
         <file>Images/win.png</file>
         <file>Images/lose.png</file>
+        <file>Images/field8.jpg</file>
+        <file>Images/field12.jpg</file>
+        <file>Images/enemy8.jpg</file>
+        <file>Images/enemy12.jpg</file>
+        <file>Images/menu.jpg</file>
     </qresource>
 </RCC>

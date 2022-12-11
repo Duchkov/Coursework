@@ -6,92 +6,140 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    images = new Images;
-    battlefield = new Battlefield(images,422,422);
-    Enemybattlefield = new Battlefield(images,422,422);
-
-    battlefield->update(true);
-    Enemybattlefield->update(false);
-
-    status = Placement;
-    pause = false;
+    ui->textBrowser->close();
+    ui->mainToolBar->close();
+    ui->pushButton_eight->close();
+    ui->pushButton_ten->close();
+    ui->pushButton_twelve->close();
+    fieldSize = 10;
 }
 
 MainWindow::~MainWindow()
 {
-    delete images;
     delete ui;
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-    QPainter painter(this);
-    painter.drawImage(0,0,images->get("background"));
-    painter.drawImage(50,50,battlefield->get());
-    if (status == Placement)
+    QPixmap bkgnd(":/Images/Images/background.png");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    window = new BattleWindow(fieldSize);
+    window->show();
+    connect(window, SIGNAL(endBattle()), this, SLOT(endBattle_Slot()));
+    this->close();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    if (ui->pushButton_2->isCheckable())
     {
-        painter.drawImage(550,50,images->get("enemy"));
-        painter.drawImage(400,500,images->get("start"));
+        ui->pushButton_2->setDown(0);
+        ui->pushButton_2->setCheckable(0);
+        ui->textBrowser->close();
     }
     else
     {
-        painter.drawImage(550,50,Enemybattlefield->get());
-        if (Enemybattlefield->checkEnd() == Win)
-        {
-            painter.drawImage(350,120,images->get("win").scaled(300,300,Qt::KeepAspectRatio));
-            pause = true;
-        }
-        if (battlefield->checkEnd() == Win)
-        {
-            painter.drawImage(350,120,images->get("lose").scaled(300,300,Qt::KeepAspectRatio));
-            pause = true;
-        }
+        ui->pushButton_2->setCheckable(1);
+        ui->pushButton_2->setDown(1);
+        ui->textBrowser->show();
+
+        ui->pushButton_size->setDown(0);
+        ui->pushButton_size->setCheckable(0);
+        ui->pushButton_eight->close();
+        ui->pushButton_ten->close();
+        ui->pushButton_twelve->close();
     }
 }
 
-void MainWindow::mousePressEvent(QMouseEvent * event)
+void MainWindow::on_pushButton_3_clicked()
 {
-    if (pause == true)
+    this-close();
+}
+
+
+void MainWindow::endBattle_Slot()
+{
+    this->show();
+}
+
+void MainWindow::on_pushButton_eight_clicked()
+{
+    if (!(ui->pushButton_eight->isCheckable()))
     {
-        return;
+        fieldSize = 8;
+        ui->pushButton_eight->setCheckable(1);
+        ui->pushButton_eight->setDown(1);
+        ui->pushButton_ten->setCheckable(0);
+        ui->pushButton_ten->setDown(0);
+        ui->pushButton_twelve->setCheckable(0);
+        ui->pushButton_twelve->setDown(0);
+        ui->pushButton_eight->setEnabled(0);
+        ui->pushButton_ten->setEnabled(1);
+        ui->pushButton_twelve->setEnabled(1);
+    }
+}
+
+void MainWindow::on_pushButton_ten_clicked()
+{
+    if (!(ui->pushButton_ten->isCheckable()))
+    {
+        fieldSize = 10;
+        ui->pushButton_eight->setCheckable(0);
+        ui->pushButton_eight->setDown(0);
+        ui->pushButton_ten->setCheckable(1);
+        ui->pushButton_ten->setDown(1);
+        ui->pushButton_twelve->setCheckable(0);
+        ui->pushButton_twelve->setDown(0);
+        ui->pushButton_eight->setEnabled(1);
+        ui->pushButton_ten->setEnabled(0);
+        ui->pushButton_twelve->setEnabled(1);
+    }
+}
+
+void MainWindow::on_pushButton_twelve_clicked()
+{
+    if (!(ui->pushButton_twelve->isCheckable()))
+    {
+        fieldSize = 12;
+        ui->pushButton_eight->setCheckable(0);
+        ui->pushButton_eight->setDown(0);
+        ui->pushButton_ten->setCheckable(0);
+        ui->pushButton_ten->setDown(0);
+        ui->pushButton_twelve->setCheckable(1);
+        ui->pushButton_twelve->setDown(1);
+        ui->pushButton_eight->setEnabled(1);
+        ui->pushButton_ten->setEnabled(1);
+        ui->pushButton_twelve->setEnabled(0);
+    }
+}
+
+void MainWindow::on_pushButton_size_clicked()
+{
+    if (ui->pushButton_size->isCheckable())
+    {
+        ui->pushButton_size->setDown(0);
+        ui->pushButton_size->setCheckable(0);
+        ui->pushButton_eight->close();
+        ui->pushButton_ten->close();
+        ui->pushButton_twelve->close();
     }
     else
     {
-        pause = true;
-        QPoint position = event->pos();
-        if(status == Placement)
-        {
-            if (position.x()>400 && position.y()>500 && position.x()<700 && position.y()<570)
-            {
-                if (battlefield->correct())
-                {
-                    status = Battle;
-                    computer = new Computer;
-                    Enemybattlefield->fill(computer->create());
-                    Enemybattlefield->update(true);
-                    this->update();
-                    pause = false;
-                    return;
-                }
-            }
-            battlefield->set(position.x()-50,position.y()-50,Ship);
-            battlefield->update(false);
-            this->update();
-        }
-        else
-        {
-            if (Enemybattlefield->shot(position.x()-550,position.y()-50))
-            {
-                Enemybattlefield->update(true);
-                this->update();
-                //QThread::msleep(1000);
-                QPoint pos = computer->attack(battlefield);
-                battlefield->shot(pos.x()*32+50,pos.y()*32+52);
-                battlefield->update(false);
-                this->update();
-            }
-        }
-        pause = false;
+        ui->pushButton_size->setCheckable(1);
+        ui->pushButton_size->setDown(1);
+        ui->pushButton_eight->show();
+        ui->pushButton_ten->show();
+        ui->pushButton_twelve->show();
+
+        ui->pushButton_2->setDown(0);
+        ui->pushButton_2->setCheckable(0);
+        ui->textBrowser->close();
     }
 }

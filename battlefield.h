@@ -28,10 +28,15 @@ struct statusShip{
     bool alive;
 };
 
+struct ShotField{
+    bool shot;
+    bool hit;
+};
+
 class Battlefield
 {
 public:
-    Battlefield(Images *images, int width, int height);
+    Battlefield(Images *images, int width, int height, int size);
     ~Battlefield();
     void update(bool enemy);
     const QImage& get() const;
@@ -39,11 +44,12 @@ public:
     QPoint getCoordinates (int x, int y);
     bool canSet (int x, int y);
     Cell check(int x, int y);
-    bool shot(int x, int y);
+    ShotField shot(int x, int y);
+    ShotField doshot(int x, int y);
     void fill(QVector<Cell> combattlefield);
     End checkEnd();
     bool correct();
-    QPoint monoShip(QPoint pos);
+    QPoint monoShip(QPoint pos, bool direction);
     statusShip status(QPoint pos);
 
 private:
@@ -52,6 +58,7 @@ private:
     QImage *image;
     Images *images;
     int width, height;
+    int fieldSize;
 };
 
 #endif // BATTLEFIELD_H

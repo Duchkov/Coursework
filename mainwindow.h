@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "Images.h"
 #include <QImage>
 #include <QPainter>
 #include "battlefield.h"
@@ -10,16 +9,12 @@
 #include <QMouseEvent>
 #include <QtWidgets>
 #include "computer.h"
+#include "battlewindow.h"
 
 namespace Ui {
 class MainWindow;
 }
 
-enum Status
-{
-    Placement,
-    Battle,
-};
 
 class MainWindow : public QMainWindow
 {
@@ -31,15 +26,29 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event);
-    void mousePressEvent(QMouseEvent *event);
+
+private slots:
+    void on_pushButton_clicked();
+    void on_pushButton_2_clicked();
+    void on_pushButton_3_clicked();
+    void endBattle_Slot();
+
+    void on_pushButton_eight_clicked();
+
+    void on_pushButton_ten_clicked();
+
+    void on_pushButton_twelve_clicked();
+
+    void on_pushButton_size_clicked();
 
 private:
     Ui::MainWindow *ui;
-    Images *images;
     Battlefield *battlefield, *Enemybattlefield;
     Status status;
     Computer *computer;
     bool pause;
+    BattleWindow *window;
+    int fieldSize;
 };
 
 #endif // MAINWINDOW_H

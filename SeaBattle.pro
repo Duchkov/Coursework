@@ -17,16 +17,19 @@ SOURCES += main.cpp\
     images.cpp \
     battlefield.cpp \
     computer.cpp \
-    battlewindow.cpp
+    battlewindow.cpp \
+    controller.cpp
 
 HEADERS  += mainwindow.h \
     images.h \
     battlefield.h \
     computer.h \
-    battlewindow.h
+    battlewindow.h \
+    controller.h
 
 FORMS    += mainwindow.ui \
     battlewindow.ui
 
 RESOURCES += \
     resources.qrc
+    RC_FILE = icon.rc

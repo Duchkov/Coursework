@@ -10,6 +10,9 @@
 #include <QMouseEvent>
 #include <QtWidgets>
 #include "computer.h"
+#include "controller.h"
+#include <QTimer>
+#include <QTime>
 
 namespace Ui {
 class BattleWindow;
@@ -18,7 +21,7 @@ class BattleWindow;
 enum Status
 {
     Placement,
-    Battle,
+    Battle
 };
 
 class BattleWindow : public QWidget
@@ -26,12 +29,18 @@ class BattleWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit BattleWindow(QWidget *parent = 0);
+    explicit BattleWindow(int field, QWidget *parent = 0);
     ~BattleWindow();
 
 protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
+signals:
+    void endBattle();
+
+private slots:
+    void drawWindow_Slot();
+    void slotTimerAlarm();
 
 private:
     Ui::BattleWindow *ui;
@@ -40,6 +49,11 @@ private:
     Status status;
     Computer *computer;
     bool pause;
+    bool turncom;
+    bool tryStart;
+    Controller *controll;
+    QTimer *timer;
+    int fieldSize, width, height;
 };
 
 #endif // BATTLEWINDOW_H

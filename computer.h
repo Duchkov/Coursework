@@ -4,12 +4,23 @@
 #include <QTime>
 #include <QPoint>
 
+struct Memory
+{
+    QPoint pos;
+    int direction;
+};
+
 class Computer
 {
 public:
-    Computer();
+    Computer(int size);
     QVector<Cell> create();
     QPoint attack(Battlefield *field);
+    Memory memory;
+    Cell check(int x, int y);
+    QVector<Cell> comfield;
+    int fieldSize;
+
 };
 
 #endif // COMPUTER_H

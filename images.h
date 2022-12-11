@@ -7,7 +7,7 @@
 class Images
 {
 public:
-    Images();
+    Images(int size);
     QImage& get(const QString& name);
 
 private:
